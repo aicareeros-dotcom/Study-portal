@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Study Portal - Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* basic reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      padding: 20px;
+    }
+
+    /* Header styling */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      padding: 10px 0;
+    }
+
+    .logo {
+      font-family: 'Pacifico', cursive;
+      font-size: 26px;
+      color: #00c6ff;
+    }
+
+    .welcome-section {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .welcome-section h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .welcome-section p {
+      opacity: 0.7;
+      font-size: 14px;
+    }
+
+    /* Cards Container */
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* Single Card Styling */
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      background: rgba(255, 255, 255, 0.12);
+      border-color: #00c6ff;
+    }
+
+    .card h3 {
+      font-size: 22px;
+      margin-bottom: 15px;
+      color: #00c6ff;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: #ccc;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      border-radius: 50px;
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: 0 4px 15px rgba(0, 198, 255, 0.3);
+      transition: 0.3s;
+    }
+
+    .btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 480px) {
+      .welcome-section h1 { font-size: 24px; }
+      .card { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Study Portal</div>
+</header>
+
+<div class="welcome-section">
+  <h1>Hello, Student! ✨</h1>
+  <p>Choose your platform and start learning today.</p>
+</div>
+
+<div class="container">
+  <div class="card">
+    <h3>Physics Wallah (PW)</h3>
+    <p>Prepare for JEE, NEET, and Board exams with India's best teachers.</p>
+    <a href="https://www.pw.live/" target="_blank" class="btn">Start Learning</a>
+  </div>
+
+  <div class="card">
+    <h3>Next Topper</h3>
+    <p>Get access to premium notes and topper strategies for your exams.</p>
+    <a href="https://www.nexttopper.in/" target="_blank" class="btn">Explore Now</a>
+  </div>
+
+  <div class="card">
+    <h3>My Profile</h3>
+    <p>Manage your account settings and track your progress.</p>
+    <a href="#" class="btn" style="background: rgba(255,255,255,0.1); box-shadow: none;">Coming Soon</a>
+  </div>
+</div>
+
+<div style="text-align: center; margin-top: 60px; font-size: 12px; opacity: 0.5;">
+  &copy; 2026 Study Portal | Developed by Ghunawat
+</div>
+
+</body>
+</html>
