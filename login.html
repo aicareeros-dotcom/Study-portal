@@ -1,163 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - Study Portal</title>
-
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
-
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    body {
-      height: 100vh;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-    }
-
-    .box {
-      width: 330px;
-      padding: 25px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.08);
-      backdrop-filter: blur(15px);
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    }
-
-    .logo {
-      font-family: 'Pacifico', cursive;
-      font-size: 30px;
-      margin-bottom: 10px;
-    }
-
-    h2 {
-      margin-bottom: 15px;
-      font-weight: 500;
-    }
-
-    input {
-      width: 100%;
-      padding: 12px;
-      margin: 8px 0;
-      border-radius: 8px;
-      border: none;
-      outline: none;
-    }
-
-    button {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      background: linear-gradient(90deg, #00c6ff, #0072ff);
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-
-    button:hover {
-      opacity: 0.9;
-    }
-
-    .link {
-      margin-top: 10px;
-      font-size: 14px;
-      cursor: pointer;
-      color: #00c6ff;
-    }
-
-    .credit {
-      margin-top: 15px;
-      font-size: 12px;
-      opacity: 0.7;
-    }
-
-    .credit span {
-      color: #00c6ff;
-      font-weight: bold;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    body { height: 100vh; background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); display: flex; justify-content: center; align-items: center; color: white; }
+    .box { width: 90%; max-width: 330px; padding: 30px; border-radius: 20px; background: rgba(255,255,255,0.08); backdrop-filter: blur(15px); text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); }
+    .logo { font-family: 'Pacifico', cursive; font-size: 32px; color: #00c6ff; margin-bottom: 5px; }
+    h2 { margin-bottom: 20px; font-weight: 500; font-size: 18px; opacity: 0.9; }
+    input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; border: none; outline: none; background: rgba(255,255,255,0.15); color: white; }
+    button { width: 100%; padding: 12px; border: none; border-radius: 10px; background: linear-gradient(90deg, #00c6ff, #0072ff); color: white; font-size: 16px; cursor: pointer; margin-top: 15px; }
+    .link { margin-top: 15px; font-size: 13px; cursor: pointer; color: #00c6ff; }
   </style>
 </head>
-
 <body>
-
 <div class="box">
-
   <div class="logo">Study Portal</div>
   <h2>Welcome Back 👋</h2>
-
-  <input id="email" placeholder="Enter Email">
-  <input id="pass" type="password" placeholder="Enter Password">
-
-  <button onclick="login()">Login</button>
-
-  <div class="link" onclick="resetPassword()">Forgot Password?</div>
-  <div class="link" onclick="goRegister()">New user? Register</div>
-
-  <div class="credit">Powered by <span>Ghunawat</span> ⚡</div>
-
+  <input id="email" type="email" placeholder="Email Address">
+  <input id="pass" type="password" placeholder="Password">
+  <button id="loginBtn">Login</button>
+  <div class="link" id="regLink">New user? Register</div>
 </div>
-
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } 
-from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD9jDwVKcJQz_51XEmeOAWlq7cJnU5cac4",
+  apiKey: "AIzaSyD9JDWVKcJQz_51XEme0AWlq7cjnU5cac4",
   authDomain: "studyhub-db6e6.firebaseapp.com",
   projectId: "studyhub-db6e6"
 };
-
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// LOGIN
-window.login = function() {
+document.getElementById("loginBtn").addEventListener("click", () => {
   const email = document.getElementById("email").value;
   const pass = document.getElementById("pass").value;
-
-  if (!email || !pass) {
-    alert("Enter all details!");
-    return;
-  }
-
   signInWithEmailAndPassword(auth, email, pass)
-    .then(() => {
-      window.location.href = "dashboard.html";
-    })
+    .then(() => window.location.href = "dashboard.html")
     .catch(err => alert(err.message));
-};
-
-// FORGOT PASSWORD
-window.resetPassword = function() {
-  const email = document.getElementById("email").value;
-
-  if (!email) {
-    alert("Enter email first!");
-    return;
-  }
-
-  sendPasswordResetEmail(auth, email)
-    .then(() => alert("Reset link sent ✅"))
-    .catch(err => alert(err.message));
-};
-
-// GO REGISTER
-window.goRegister = function() {
-  window.location.href = "register.html";
-};
+});
+document.getElementById("regLink").addEventListener("click", () => window.location.href = "register.html");
 </script>
-
 </body>
-  </html>
+</html>
