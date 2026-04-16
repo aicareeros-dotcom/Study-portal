@@ -9,7 +9,7 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
     body { height: 100vh; background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); display: flex; justify-content: center; align-items: center; overflow: hidden; color: white; }
-    .box { width: 90%; max-width: 320px; padding: 30px; border-radius: 20px; background: rgba(255,255,255,0.08); backdrop-filter: blur(15px); text-align: center; box-shadow: 0 8px 32px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); }
+    .box { width: 90%; max-width: 320px; padding: 30px; border-radius: 20px; background: rgba(255,255,255,0.08); backdrop-filter: blur(15px); text-align: center; border: 1px solid rgba(255,255,255,0.1); }
     #anim { width: 120px; margin: auto; }
     .logo { font-family: 'Pacifico', cursive; font-size: 28px; margin-top: 15px; background: linear-gradient(90deg, #00c6ff, #0072ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .progress { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 25px; overflow: hidden; }
@@ -23,13 +23,6 @@
   <div class="logo">Study Portal</div>
   <div class="progress"><div class="bar"></div></div>
 </div>
-<script>
-  lottie.loadAnimation({
-    container: document.getElementById("anim"),
-    renderer: "svg", loop: true, autoplay: true,
-    path: "https://assets10.lottiefiles.com/packages/lf20_usmfx6bp.json"
-  });
-</script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
@@ -42,11 +35,17 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+lottie.loadAnimation({
+    container: document.getElementById("anim"),
+    renderer: "svg", loop: true, autoplay: true,
+    path: "https://assets10.lottiefiles.com/packages/lf20_usmfx6bp.json"
+});
+
 setTimeout(() => {
   onAuthStateChanged(auth, (user) => {
     window.location.href = user ? "dashboard.html" : "login.html";
   });
-}, 3000);
+}, 3500);
 </script>
 </body>
 </html>
