@@ -4,37 +4,105 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - Study Portal</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
   <style>
-    /* Styling same as register */
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-    body { height: 100vh; background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); display: flex; justify-content: center; align-items: center; color: white; }
-    .box { width: 330px; padding: 25px; border-radius: 20px; background: rgba(255,255,255,0.08); backdrop-filter: blur(15px); text-align: center; border: 1px solid rgba(255,255,255,0.1); }
-    .logo { font-family: 'Pacifico', cursive; font-size: 30px; margin-bottom: 20px; color: #00c6ff; }
-    input { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: none; outline: none; background: rgba(255,255,255,0.15); color: white; }
-    button { width: 100%; padding: 12px; border: none; border-radius: 8px; background: linear-gradient(90deg, #00c6ff, #0072ff); color: white; font-weight: 600; cursor: pointer; margin-top: 10px; }
-    .link { margin-top: 15px; font-size: 14px; cursor: pointer; color: #00c6ff; display: block; }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+
+    .box {
+      width: 330px;
+      padding: 25px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(15px);
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .logo {
+      font-family: 'Pacifico', cursive;
+      font-size: 30px;
+      margin-bottom: 20px;
+      color: #00c6ff;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      background: rgba(255,255,255,0.15);
+      color: white;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .link {
+      margin-top: 15px;
+      font-size: 14px;
+      cursor: pointer;
+      color: #00c6ff;
+      display: block;
+      text-decoration: none;
+    }
+
+    .error {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #ff4d4d;
+    }
   </style>
 </head>
+
 <body>
+
 <div class="box">
   <div class="logo">Study Portal</div>
   <h2>Welcome Back 👋</h2>
+
   <input id="email" type="email" placeholder="Email Address">
   <input id="pass" type="password" placeholder="Password">
+
   <button id="loginBtn">Login</button>
+
+  <div class="error" id="error"></div>
+
   <a href="register.html" class="link">New user? Register</a>
 </div>
 
 <script type="module">
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
 
+// 🔥 FIXED FIREBASE CONFIG
 const firebaseConfig = {
-  apiKey: "AIzaSyD9JDWVKcJQz_51XEme0AWlq7cjnU5cac4",
+  apiKey: "YOUR_API_KEY_HERE",
   authDomain: "studyhub-db6e6.firebaseapp.com",
   projectId: "studyhub-db6e6",
-  storageBucket: "studyhub-db6e6.firebasestorage.app",
+  storageBucket: "studyhub-db6e6.appspot.com",
   messagingSenderId: "1009962944066",
   appId: "1:1009962944066:web:d73997a7b3e1109cf78fdb"
 };
@@ -42,13 +110,30 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-document.getElementById("loginBtn").addEventListener("click", () => {
-  const email = document.getElementById("email").value;
-  const pass = document.getElementById("pass").value;
-  signInWithEmailAndPassword(auth, email, pass)
-    .then(() => window.location.href = "dashboard.html")
-    .catch(err => alert("Login Error: " + err.message));
+document.getElementById("loginBtn").addEventListener("click", async () => {
+
+  const email = document.getElementById("email").value.trim();
+  const pass = document.getElementById("pass").value.trim();
+  const errorBox = document.getElementById("error");
+
+  errorBox.innerText = "";
+
+  if (!email || !pass) {
+    errorBox.innerText = "Please fill all fields";
+    return;
+  }
+
+  try {
+    await signInWithEmailAndPassword(auth, email, pass);
+    window.location.href = "dashboard.html";
+  } 
+  catch (err) {
+    errorBox.innerText = err.message;
+  }
+
 });
+
 </script>
+
 </body>
 </html>
